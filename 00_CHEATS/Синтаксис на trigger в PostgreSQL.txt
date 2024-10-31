@@ -1,0 +1,22 @@
+CREATE TABLE logs(
+	колоните, които са дадени
+);
+
+CREATE OR REPLACE FUNCTION fn_името_на_тригера()
+RETURNS TRIGGER AS
+$$
+	BEGIN
+		INSERT INTO 
+			logs(account_id, old_sum, new_sum)
+		VALUES
+			(old.id, old.balance, new.balance);		тук са колоните от тригнатата таблица
+	RETURN NEW;
+	END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER tr_името на тригера
+AFTER UPDATE OF balance ON accounts или AFTER INSERT ON тригнатата таблица
+FOR EACH ROW
+WHEN ако има тякакво условие
+EXECUTE PROCEDURE fn_името_на_тригера();
